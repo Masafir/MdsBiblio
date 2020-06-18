@@ -1,8 +1,8 @@
 ### MDS LIBRARY
 
-Install dependencies
+# Install dependencies
 * ``` npm install ```
-Install Application on your device
+# Install Application on your device
 * ``` npx react-native run-android ```
-Start Metro builder
+# Start Metro builder
 * ``` npx react-native start ``` 
