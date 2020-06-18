@@ -21,11 +21,14 @@ export default Login = (props) => {
         />
         <Input 
         placeholder="Mot de passe"
+        keyboardAppearance="dark"
+        secureTextEntry={true}
         onChangeText={(e) => setPassword(e)}
         />
         <Button 
           title="Valider"
-          onPress={() => props.navigation.navigate('Home')}
+          
+          onPress={() => console.log(password,mail)}
         />
       </View>
     </View>
