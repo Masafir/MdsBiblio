@@ -1,16 +1,28 @@
-import React,{ Component, useState } from 'react';
+import React,{ Component, useState,useEffect } from 'react';
 import {
   StyleSheet,
   View,
   Text,
 } from 'react-native';
 import { Input,Button } from 'react-native-elements';
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { addUser } from '../../Actions/actionsUser';
+import { makeSelectConnected } from '../../Selectors/userSelector';
 
-
-export default Login = (props) => {
+const Login = (props) => {
   const [password,setPassword] = useState();
   const [mail,setMail] = useState();
-
+  useEffect(() => {
+    const { connected,navigation } = props;
+    connected ? navigation.navigate("Home") : null
+  })
+  const handleConnection = () => {
+    const { submit } = props;
+    setMail('');
+    setPassword('');
+    submit(mail,password);
+  }
   return(
     <View style={styles.container}>
       <Text style={styles.title}>Page de connexion</Text>
@@ -28,7 +40,7 @@ export default Login = (props) => {
         <Button 
           title="Valider"
           
-          onPress={() => console.log(password,mail)}
+          onPress={() => handleConnection(password,mail)}
         />
       </View>
     </View>
@@ -52,3 +64,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 });
+const mapStateToProps = createStructuredSelector({
+  connected: makeSelectConnected()
+});
+const mapDispatchToProps = (dispatch) => ({
+  submit: (username,password) => addUser(dispatch,username,password)
+})
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login)
