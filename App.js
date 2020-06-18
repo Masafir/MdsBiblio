@@ -7,7 +7,10 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react'
 import Home from './components/Home';
 import Login from './components/Login';
+import Library from './components/Library';
+import BookForm from './components/BookForm';
 import createStore from './Stores/store';
+import Scanner from './components/Scanner';
 
 const Stack = createStackNavigator();
 const { store, persistor } = createStore()
@@ -24,6 +27,9 @@ function App() {
               options={{ title: 'Accueil' }}
             />
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Library" component={Library} />
+            <Stack.Screen name="BookForm" component={BookForm} />
+            <Stack.Screen name="Scanner" component={Scanner} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

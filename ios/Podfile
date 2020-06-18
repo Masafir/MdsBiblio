@@ -79,6 +79,8 @@ target 'MDSbiblio' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   target 'MDSbiblioTests' do
     inherit! :complete
     # Pods for testing

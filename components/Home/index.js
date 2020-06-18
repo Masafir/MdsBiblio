@@ -15,7 +15,7 @@ import { makeSelectStudies, makeSelectUsername, makeSelectConnected } from '../.
 import { deleteUser } from '../../Actions/actionsUser';
 
 const Home = (props) => {
-  const { connected,username,deleted } = props;
+  const { connected,username,deleted,navigation } = props;
   console.log(connected,username);
   return(
       <View style={styles.container}>
@@ -26,14 +26,19 @@ const Home = (props) => {
             <Text> Hey salut à toi {username} </Text>
             <Button 
               title="Reset"
-              buttonStyle={{backgroundColor: "skyblue",margin: 12}}
+              buttonStyle={{backgroundColor: "red",margin: 12}}
               onPress={() => deleted()}
+            />
+            <Button 
+              title="Library"
+              buttonStyle={{backgroundColor: "purple",margin: 12}}
+              onPress={() => navigation.navigate('Library')}
             />
           </View>
           : <Button 
           title="Connexion"
           buttonStyle={{backgroundColor: "skyblue",margin: 12}}
-          onPress={() => props.navigation.navigate('Login')}
+          onPress={() => navigation.navigate('Login')}
         />
         }
         
@@ -57,7 +62,6 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = createStructuredSelector({
-  books: makeSelectBooks(),
   studies: makeSelectStudies(),
   username: makeSelectUsername(),
   connected: makeSelectConnected()

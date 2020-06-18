@@ -8,9 +8,13 @@ const initalState = {
 
 export default function(state = initalState,action){
   switch (action.type) {
-    case "value":
-      
-      break;
+    case "ADD_BOOK":
+      const newBooks = state.books;
+      newBooks.push(action.data);
+      return {
+        ...state,
+        books: [...newBooks]
+      };
   
       default:
         return state;
