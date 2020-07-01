@@ -17,13 +17,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Profile = (props) => {
   const { booker,navigation } = props;
-  //console.log("Books : ",booker);
+
   console.log(props)
   return(
       <View style={styles.container}>
         <Text> Profile </Text>
         <View>
-          <Text>{ booker }</Text>
+          <Text>{booker.map(book => book.name)}</Text>
         </View>
       </View>
   );

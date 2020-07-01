@@ -8,7 +8,7 @@
    firstname: "",
    studies: "mds",
    connected: false,
-   borrowed: ["bite"]
+   borrowed: []
  }
 
  export default function(state = initalState,action){
