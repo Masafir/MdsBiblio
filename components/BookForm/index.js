@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import {
   Button,
   ThemeProvider,
@@ -26,6 +26,9 @@ const BookForm = (props) => {
   const [year,setYear] = useState();
   const [type,setType] = useState("Aucune");
   const [error,setError] = useState(false);
+  const [data,setData] = useState();
+  const [codeType,setCodeType] = useState();
+
   const handleChanges = (type,value) => {
     switch (type) {
       case 'name':
@@ -47,7 +50,7 @@ const BookForm = (props) => {
   const handleSubmit = () => {
     if(name && author && year && type)
     {
-      addBook({name,author,year,type});
+      addBook({name,author,year,type,codeType,data});
       setError(false);
       navigation.goBack();
     }
@@ -55,6 +58,23 @@ const BookForm = (props) => {
       setError(true);
     }
   }
+  useEffect(() => {
+    //console.log("ici",data,codeType);
+    //console.log(props.route.params.barCode);
+    const { route } = props;
+    if(route.params && route.params.barCode)
+    {
+      const { barCode } = props.route.params;
+      if(data != barCode.data)
+      {
+        setData(barCode.data);
+      }
+      if(codeType != barCode.type)
+      {
+        setCodeType(barCode.type);
+      }
+    }
+  });
 
   return(
       <View style={styles.container}>
@@ -68,12 +88,21 @@ const BookForm = (props) => {
               typeArray.map((type,id) => <Picker.Item label={type.label} value={type.value} />)
             }
           </Picker>
+          <Text style={styles.text}>
+             { codeType ? `Type : ${codeType}` : null }
+          </Text>
+          <Text style={styles.text}>
+             { data ? `Code Bar : ${data}` : null }
+          </Text>
           { error ? <View style={{backgroundColor:"red",padding: 10,margin: 5}}><Text style={{color:"white"}}> Veuillez remplir tout les champs avant de valider </Text></View> : null}
-          <Button 
+          
+          { codeType && data ? 
+           null :<Button 
             title="Scanner"
             color="blue"
-            onPress={() => navigation.navigate('Scanner')}
-          />
+            onPress={() => navigation.navigate('Scanner',{previous: {name: 'BookForm'}})}
+          />}
+          
         </View>
 
         <Button

@@ -27,5 +27,6 @@ createSelector(
   selectUser,
   userState => userState.connected,
 );
+const makeSelectBooks = () => createSelector(selectUser,userState => userState.books);
 
-export { makeSelectUsername,makeSelectFirstname,makeSelectLastname,makeSelectStudies,makeSelectConnected };
+export { makeSelectUsername,makeSelectFirstname,makeSelectLastname,makeSelectStudies,makeSelectConnected,makeSelectBooks };

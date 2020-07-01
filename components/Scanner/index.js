@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 
 import {
 Text,
@@ -9,44 +9,75 @@ TouchableOpacity,
 Image
 } from 'react-native';
 
-import Camera from 'react-native-camera';
+import { RNCamera } from 'react-native-camera';
 
 export default BarCodeScanner = (props) => {
-  const { navigation } = props;
+  const { navigation,route } = props;
   const [torchOn,setTorchOn] = useState(true);
   const [data,setData] = useState();
   const [type,setType] = useState();
+  //console.log("Your rnc camera FlashMode : ",RNCamera.Constants.TOr);
+  //console.log("Your rnc camera Aspect : ",RNCamera.Constants.Aspect);
+  useEffect(() => console.log(data),console.log(type));
   return(
-    <View>
-      <Camera
-        torchMode={torchOn ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off}
-        onBarCodeRead={(e) => { Alert.alert("La valeur du code bar est : " + e.data, " Il est de type : " + e.type); setData(e.data); setType(e.type);}}
+    <View style={styles.preview}>
+      <RNCamera
+        flashMode={torchOn ? 2 : 0}
+        onBarCodeRead={(e) => { 
+        navigation.navigate(route.params.previous.name,{
+          barCode: {
+            data: e.data,
+            type: e.type
+          }
+        });
+        setData(e.data); 
+        setType(e.type);
+      }}
         ref={cam => camera = cam}
-        aspect={Camera.constants.Aspect.fill}
+        style={styles.preview}
+        //aspect={RNCamera.Constants.Aspect.fill}
+        androidRecordAudioPermissionOptions={{
+          title: 'Permission to use audio recording',
+          message: 'We need your permission to use your audio',
+          buttonPositive: 'Ok',
+          buttonNegative: 'Cancel',
+        }}
       >
       <Text style={{
-        backgroundColor: 'white',
-        margin: 10
-        }}>Scanner le code barre</Text>
+        flex: 0,
+        justifyContent: "center",
+        alignContent: "center",
+        margin: 70,
+        padding: 10
+        }}></Text>
 
-      </Camera>
+      </RNCamera>
       <View style={styles.bottomOverlay}>
-        <TouchableOpacity onPress={() => setTorchOn(!torchOn)}>
-        <Text> LA LAMPE EST {torchOn ? "ON" : "OFF"} </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text> retour </Text>
+        <TouchableOpacity style={{backgroundColor: torchOn ? "#fff" : "#000",borderColor: torchOn ? "#000" : "#fff",padding: 10,borderRadius: 10}} onPress={() => setTorchOn(!torchOn)}>
+        <Text style={{color: torchOn ? "#000" : "#fff",textAlign:"center"}}> LA LAMPE EST {torchOn ? "ON" : "OFF"} </Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  bottomOverlay: {
-  position: "absolute",
-  width: "100%",
-  flex: 20,
-  flexDirection: "row",
-  justifyContent: "space-between"
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'black',
   },
+  bottomOverlay: {
+    position: "absolute",
+    width: "80%",
+    textAlign: "center",
+    flex: 0,
+    flexDirection: "column",
+    padding: 20
+  },
+  preview: {
+    flex: 1,
+    height: "100%",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  }
   });

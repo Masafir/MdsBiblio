@@ -7,7 +7,8 @@
    lastname: "",
    firstname: "",
    studies: "mds",
-   connected: false
+   connected: false,
+   books: []
  }
 
  export default function(state = initalState,action){
