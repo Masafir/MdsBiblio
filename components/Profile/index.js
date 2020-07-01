@@ -11,17 +11,20 @@ import{
 } from 'react-native';
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import { makeSelectBooks } from '../../Selectors/bookSelector';
+import { makeSelectBorrowed } from '../../Selectors/userSelector';
 import { deleteUser } from '../../Actions/actionsUser';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Profile = (props) => {
-  const { books,navigation } = props;
-
+  const { booker,navigation } = props;
+  //console.log("Books : ",booker);
+  console.log(props)
   return(
       <View style={styles.container}>
-        <Text> Profile</Text>
-        
+        <Text> Profile </Text>
+        <View>
+          <Text>{ booker }</Text>
+        </View>
       </View>
   );
 }
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = createStructuredSelector({
-  books: makeSelectBooks(),
+  booker: makeSelectBorrowed(),
 });
 const mapDispatchToProps = (dispatch) => ({
   deleted: () => deleteUser(dispatch)

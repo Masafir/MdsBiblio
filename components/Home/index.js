@@ -26,18 +26,65 @@ const Home = (props) => {
             <Text> Hey salut à toi {username} </Text>
             <Button 
               title="Reset"
-              buttonStyle={{backgroundColor: "red",margin: 12}}
+              buttonStyle={{
+              backgroundColor: "red",
+              margin: 12,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.29,
+              shadowRadius: 4.65,
+              
+              elevation: 7}}
               onPress={() => deleted()}
             />
             <Button 
               title="Library"
-              buttonStyle={{backgroundColor: "purple",margin: 12}}
+              buttonStyle={{backgroundColor: "purple",
+              margin: 12,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.29,
+              shadowRadius: 4.65,
+              
+              elevation: 7
+            }}
               onPress={() => navigation.navigate('Library')}
+            />
+            <Button 
+              title="Profile"
+              buttonStyle={{backgroundColor: "green",
+              margin: 12,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.29,
+              shadowRadius: 4.65,
+              
+              elevation: 7
+            }}
+              onPress={() => navigation.navigate('Profile')}
             />
           </View>
           : <Button 
           title="Connexion"
-          buttonStyle={{backgroundColor: "skyblue",margin: 12}}
+          buttonStyle={{backgroundColor: "skyblue",margin: 12,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 3,
+          },
+          shadowOpacity: 0.29,
+          shadowRadius: 4.65,
+          
+          elevation: 7}}
           onPress={() => navigation.navigate('Login')}
         />
         }

@@ -11,6 +11,7 @@ import Library from './components/Library';
 import BookForm from './components/BookForm';
 import createStore from './Stores/store';
 import Scanner from './components/Scanner';
+import Profile from './components/Profile';
 
 const Stack = createStackNavigator();
 const { store, persistor } = createStore()
@@ -30,6 +31,7 @@ function App() {
             <Stack.Screen name="Library" component={Library} />
             <Stack.Screen name="BookForm" component={BookForm} />
             <Stack.Screen name="Scanner" component={Scanner} />
+            <Stack.Screen name="Profile" component={Profile} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

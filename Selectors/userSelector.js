@@ -27,6 +27,10 @@ createSelector(
   selectUser,
   userState => userState.connected,
 );
-const makeSelectBooks = () => createSelector(selectUser,userState => userState.books);
+const makeSelectBorrowed = () =>
+createSelector(
+  selectUser,
+  userState => userState.borrowed,
+);
 
-export { makeSelectUsername,makeSelectFirstname,makeSelectLastname,makeSelectStudies,makeSelectConnected,makeSelectBooks };
+export { makeSelectUsername,makeSelectFirstname,makeSelectLastname,makeSelectStudies,makeSelectConnected,makeSelectBorrowed };
