@@ -18,7 +18,9 @@
       case "DELETE_USER":
         return {...state,connected: false,username: ''}
       case "BORROW_BOOK":
-        return {...state,books: action.data.book}
+        return {...state,borrowed: [...borrowed.push(action.data.book)]}
+      case "RETURN_BOOK":
+        return {...state,borrowed: borrowed.filter(book => book.code != action.data.code)}
      default:
        return state;
    }

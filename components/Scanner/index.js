@@ -16,20 +16,36 @@ export default BarCodeScanner = (props) => {
   const [torchOn,setTorchOn] = useState(true);
   const [data,setData] = useState();
   const [type,setType] = useState();
-  //console.log("Your rnc camera FlashMode : ",RNCamera.Constants.TOr);
-  //console.log("Your rnc camera Aspect : ",RNCamera.Constants.Aspect);
   useEffect(() => console.log(data),console.log(type));
   return(
     <View style={styles.preview}>
       <RNCamera
         flashMode={torchOn ? 2 : 0}
         onBarCodeRead={(e) => { 
-        navigation.navigate(route.params.previous.name,{
-          barCode: {
-            data: e.data,
-            type: e.type
+        const { previous } = route.params;
+        if(previous.function)
+        {
+          if(previous.function({code: e.data,type: e.type}))
+          {
+            navigation.navigate(previous.name,{
+              barCode: {
+                data: e.data,
+                type: e.type
+              }
+            });
           }
-        });
+          else {
+            Alert.alert("Ce livre n'est pas dans la banque de donnée veuillez le rajouter si vous souhaitez l'utiliser");
+          }
+        }
+        else{
+          navigation.navigate(previous.name,{
+            barCode: {
+              data: e.data,
+              type: e.type
+            }
+          });
+        }
         setData(e.data); 
         setType(e.type);
       }}

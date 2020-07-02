@@ -6,3 +6,4 @@
 * ``` npx react-native run-android ```
 ### Start Metro builder
 * ``` npx react-native start ``` 
+#  Mot de passe : root 

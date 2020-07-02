@@ -17,7 +17,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Library = (props) => {
   const { books,navigation } = props;
-
+  console.log("librairie : ",books);
   return(
       <View style={styles.container}>
         <View>

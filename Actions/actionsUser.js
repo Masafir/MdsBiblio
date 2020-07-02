@@ -8,3 +8,19 @@ export const addUser = (dispatch,username,password) => {
 export const deleteUser  = (dispatch) => { 
   dispatch({ type: "DELETE_USER" })
 }
+
+export const borrowBook = (dispatch,newData,books) => {
+  if(books.find(book => book.data == newData.code))
+  {
+    dispatch({type: "BORROW_BOOK",data: {book: {...newData}}})
+    return true;
+  }
+  else {
+    return false;
+  }
+
+}
+
+export const returnBook = (dispatch,book) => {
+  dispatch({type: "RETURN_BOOK",data: {...book}})
+}
